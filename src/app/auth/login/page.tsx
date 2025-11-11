@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { FormEvent, useState } from "react";
+import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -18,7 +18,7 @@ export default function LoginPage() {
       password: formData.get("password")
     });
     if (res?.error) {
-      setError("Login fehlgeschlagen. Bitte prüfen.");
+      setError("Login fehlgeschlagen.");
     } else {
       router.push("/");
     }
@@ -29,8 +29,20 @@ export default function LoginPage() {
       <h1 className="text-xl font-semibold">Login bei TradeHub</h1>
       {error && <div className="text-xs text-red-500">{error}</div>}
       <form onSubmit={handleSubmit} className="space-y-3 text-xs">
-        <input name="email" type="email" placeholder="E-Mail" required className="w-full border px-3 py-2 rounded-md" />
-        <input name="password" type="password" placeholder="Passwort" required className="w-full border px-3 py-2 rounded-md" />
+        <input
+          name="email"
+          type="email"
+          placeholder="E-Mail"
+          required
+          className="w-full border px-3 py-2 rounded-md"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Passwort"
+          required
+          className="w-full border px-3 py-2 rounded-md"
+        />
         <button className="btn-primary w-full">Einloggen</button>
       </form>
     </div>

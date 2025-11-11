@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: true
+    appDir: true
   },
   images: {
     remotePatterns: [
@@ -13,5 +13,4 @@ const nextConfig = {
     ]
   }
 };
-
 export default nextConfig;

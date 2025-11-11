@@ -8,9 +8,10 @@ export function Navbar() {
   const pathname = usePathname();
 
   const linkClass = (path: string) =>
-    `px-3 py-2 text-sm ${pathname === path
-      ? "text-tradehub-blue font-semibold"
-      : "text-slate-600 hover:text-tradehub-blue"
+    `px-3 py-2 text-sm ${
+      pathname === path
+        ? "text-tradehub-blue font-semibold"
+        : "text-slate-600 hover:text-tradehub-blue"
     }`;
 
   return (
@@ -20,16 +21,24 @@ export function Navbar() {
           <Logo />
         </Link>
         <nav className="hidden md:flex items-center gap-2">
-          <Link href="/products" className={linkClass("/products")}>Produkte</Link>
-          <Link href="/sell" className={linkClass("/sell")}>Jetzt verkaufen</Link>
-          <Link href="/help" className={linkClass("/help")}>Hilfe</Link>
-          <Link href="/legal/impressum" className={linkClass("/legal/impressum")}>Rechtliches</Link>
+          <Link href="/products" className={linkClass("/products")}>
+            Produkte
+          </Link>
+          <Link href="/sell" className={linkClass("/sell")}>
+            Jetzt verkaufen
+          </Link>
+          <Link href="/help" className={linkClass("/help")}>
+            Hilfe
+          </Link>
+          <Link href="/legal/impressum" className={linkClass("/legal/impressum")}>
+            Rechtliches
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
-          <Link href="/cart" className="text-sm text-slate-600 hover:text-tradehub-blue">
-            Warenkorb
-          </Link>
-          <Link href="/auth/login" className="btn-outline text-xs">
+          <Link
+            href="/auth/login"
+            className="text-sm text-slate-600 hover:text-tradehub-blue"
+          >
             Login
           </Link>
           <Link href="/auth/register" className="btn-primary text-xs">

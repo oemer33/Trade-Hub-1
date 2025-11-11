@@ -1,5 +1,5 @@
-import { prisma } from "@/src/lib/db";
-import { ProductCard } from "@/src/components/ProductCard";
+import { prisma } from "@/lib/db";
+import { ProductCard } from "@/components/ProductCard";
 
 export default async function ProductsPage({
   searchParams
@@ -7,12 +7,14 @@ export default async function ProductsPage({
   searchParams: { q?: string; category?: string };
 }) {
   const where: any = { active: true };
+
   if (searchParams.q) {
     where.OR = [
       { title: { contains: searchParams.q, mode: "insensitive" } },
       { description: { contains: searchParams.q, mode: "insensitive" } }
     ];
   }
+
   if (searchParams.category) {
     where.category = searchParams.category;
   }

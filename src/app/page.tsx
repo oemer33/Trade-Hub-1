@@ -1,5 +1,5 @@
-import { prisma } from "@/src/lib/db";
-import { ProductCard } from "@/src/components/ProductCard";
+import { prisma } from "@/lib/db";
+import { ProductCard } from "@/components/ProductCard";
 import Link from "next/link";
 
 export default async function HomePage() {
@@ -21,25 +21,27 @@ export default async function HomePage() {
             TradeHub – Dein vertrauenswürdiger Online-Marktplatz.
           </h1>
           <p className="text-sm text-slate-600">
-            Kaufe und verkaufe sicher neue & gebrauchte Artikel. Transparent, modern
-            und für Deutschland & EU vorbereitet.
+            Kaufe und verkaufe sicher neue & gebrauchte Artikel.
           </p>
           <div className="flex gap-3">
-            <Link href="/sell" className="btn-primary">Jetzt verkaufen</Link>
-            <Link href="/products" className="btn-outline">Jetzt kaufen</Link>
+            <Link href="/sell" className="btn-primary">
+              Jetzt verkaufen
+            </Link>
+            <Link href="/products" className="btn-outline">
+              Jetzt kaufen
+            </Link>
           </div>
         </div>
         <div className="text-xs text-slate-500">
-          • Sichere Zahlung (Platzhalter für PayPal / Karte / Klarna) <br />
-          • Bewertungsprofil für Verkäufer <br />
-          • DSGVO-Struktur & Rechtstexte als Platzhalter
+          • Sichere Accounts & Login <br />
+          • Produkt-Listing & Details <br />
+          • Rechtliche Seiten als Platzhalter
         </div>
       </section>
-
       <section className="space-y-3">
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold text-slate-800">
-            Neu eingestellt auf TradeHub
+            Neu auf TradeHub
           </h2>
           <Link href="/products" className="text-xs text-tradehub-blue">
             Alle ansehen

@@ -1,8 +1,8 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import AppleProvider from "next-auth/providers/apple";
-import { prisma } from "@/src/lib/db";
+import type { NextAuthOptions } from "next-auth";
+import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
@@ -10,8 +10,8 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {},
-        password: {}
+        email: { label: "Email", type: "email" },
+        password: { label: "Passwort", type: "password" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
@@ -41,26 +41,17 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.APPLE_CLIENT_SECRET || ""
     })
   ],
-  callbacks: {
-    async session({ session, token }) {
-      if (token?.sub) {
-        const user = await prisma.user.findUnique({
-          where: { id: token.sub }
-        });
-        if (user) {
-          (session as any).user.id = user.id;
-          (session as any).user.role = user.role;
-        }
-      }
-      return session;
-    },
-    async jwt({ token }) {
-      return token;
-    }
-  },
   pages: {
     signIn: "/auth/login"
   },
   session: { strategy: "jwt" },
+  callbacks: {
+    async session({ session, token }) {
+      if (token.sub && session.user) {
+        (session.user as any).id = token.sub;
+      }
+      return session;
+    }
+  },
   secret: process.env.NEXTAUTH_SECRET
 };

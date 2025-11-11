@@ -1,5 +1,5 @@
-import { prisma } from "@/src/lib/db";
-import { RatingStars } from "@/src/components/RatingStars";
+import { prisma } from "@/lib/db";
+import { RatingStars } from "@/components/RatingStars";
 import Link from "next/link";
 
 export default async function ProductDetailPage({
@@ -66,32 +66,21 @@ export default async function ProductDetailPage({
           <div className="font-semibold">Verkäufer: {product.seller.name}</div>
           {product.seller.ratingCount > 0 && (
             <div className="flex items-center gap-1">
-              <RatingStars rating={product.seller.ratingAverage || 0} size="xs" />
+              <RatingStars
+                rating={product.seller.ratingAverage || 0}
+                size="xs"
+              />
               <span className="text-[10px] text-slate-500">
                 ({product.seller.ratingCount} Bewertungen)
               </span>
             </div>
           )}
           <Link
-            href={`/account/messages?to=${product.sellerId}&product=${product.id}`}
+            href={`/auth/login`}
             className="text-[10px] text-tradehub-blue"
           >
-            Verkäufer kontaktieren
+            Verkäufer kontaktieren (Login erforderlich)
           </Link>
-        </div>
-        <div className="flex gap-3 pt-2">
-          <form action="/cart" method="POST">
-            <input type="hidden" name="productId" value={product.id} />
-            <button className="btn-outline w-32" type="submit">
-              In den Warenkorb
-            </button>
-          </form>
-          <form action="/checkout" method="POST">
-            <input type="hidden" name="productId" value={product.id} />
-            <button className="btn-primary w-32" type="submit">
-              Sofort kaufen
-            </button>
-          </form>
         </div>
       </div>
     </div>

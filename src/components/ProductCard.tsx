@@ -10,7 +10,14 @@ type Props = {
   rating?: number | null;
 };
 
-export function ProductCard({ id, title, price, image, sellerName, rating }: Props) {
+export function ProductCard({
+  id,
+  title,
+  price,
+  image,
+  sellerName,
+  rating
+}: Props) {
   return (
     <Link
       href={`/products/${id}`}
@@ -28,10 +35,10 @@ export function ProductCard({ id, title, price, image, sellerName, rating }: Pro
         <h3 className="text-sm font-semibold text-slate-800 line-clamp-2">
           {title}
         </h3>
-        <div className="text-tradehub-blue font-bold text-base">{price.toFixed(2)} €</div>
-        <div className="text-[10px] text-slate-500">
-          Verkäufer: {sellerName}
+        <div className="text-tradehub-blue font-bold text-base">
+          {price.toFixed(2)} €
         </div>
+        <div className="text-[10px] text-slate-500">Verkäufer: {sellerName}</div>
         {typeof rating === "number" && (
           <RatingStars rating={rating} size="xs" />
         )}

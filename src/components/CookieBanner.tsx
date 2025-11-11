@@ -16,7 +16,7 @@ export function CookieBanner() {
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 max-w-xl bg-white shadow-lg rounded-lg p-4 text-xs flex flex-col md:flex-row gap-3 items-center border border-slate-200 z-50">
       <p className="text-slate-600">
         TradeHub nutzt Cookies für grundlegende Funktionen und optionale Analyse.
-        Bitte stimme zu oder lehne ab. Details in unserer Datenschutzerklärung.
+        Details in der Datenschutzerklärung.
       </p>
       <div className="flex gap-2">
         <button

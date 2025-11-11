@@ -31,28 +31,21 @@ model User {
   email          String    @unique
   hashedPassword String
   image          String?
-  addressLine1   String?
-  addressLine2   String?
-  city           String?
-  postalCode     String?
-  country        String?
   isBusiness     Boolean   @default(false)
   isVerified     Boolean   @default(false)
   role           Role      @default(USER)
-  ratingAverage  Float?    @default(0)
+  ratingAverage  Float     @default(0)
   ratingCount    Int       @default(0)
-  products       Product[] @relation("UserProducts")
-  orders         Order[]   @relation("UserOrders")
-  sales          Order[]   @relation("UserSales")
-  messages       Message[] @relation("UserMessages")
-  threadsBuyer   MessageThread[] @relation("BuyerThreads")
-  threadsSeller  MessageThread[] @relation("SellerThreads")
+  products       Product[]
+  orders         Order[]   @relation("Orders")
+  sales          Order[]   @relation("Sales")
+  messages       Message[]
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 }
 
 model Product {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   title         String
   description   String
   price         Float
@@ -62,13 +55,12 @@ model Product {
   shippingPrice Float
   shippingCountries String
   location      String?
-  seller        User      @relation("UserProducts", fields: [sellerId], references: [id])
+  seller        User           @relation(fields: [sellerId], references: [id])
   sellerId      String
-  active        Boolean   @default(true)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  active        Boolean        @default(true)
   orders        OrderItem[]
-  threads       MessageThread[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model ProductImage {
@@ -80,9 +72,9 @@ model ProductImage {
 
 model Order {
   id          String       @id @default(cuid())
-  buyer       User         @relation("UserOrders", fields: [buyerId], references: [id])
+  buyer       User         @relation("Orders", fields: [buyerId], references: [id])
   buyerId     String
-  seller      User         @relation("UserSales", fields: [sellerId], references: [id])
+  seller      User         @relation("Sales", fields: [sellerId], references: [id])
   sellerId    String
   items       OrderItem[]
   total       Float
@@ -125,32 +117,20 @@ model Review {
   createdAt DateTime @default(now())
 }
 
-model MessageThread {
-  id        String    @id @default(cuid())
-  product   Product   @relation(fields: [productId], references: [id])
-  productId String
-  buyer     User      @relation("BuyerThreads", fields: [buyerId], references: [id])
-  buyerId   String
-  seller    User      @relation("SellerThreads", fields: [sellerId], references: [id])
-  sellerId  String
-  messages  Message[]
-  createdAt DateTime  @default(now())
-}
-
 model Message {
-  id        String    @id @default(cuid())
-  thread    MessageThread @relation(fields: [threadId], references: [id])
-  threadId  String
-  sender    User      @relation("UserMessages", fields: [senderId], references: [id])
-  senderId  String
+  id        String   @id @default(cuid())
+  fromUser  User     @relation(fields: [fromUserId], references: [id])
+  fromUserId String
+  toUser    User     @relation(fields: [toUserId], references: [id])
+  toUserId  String
   content   String
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
 }
 
 model VerificationToken {
   id        String   @id @default(cuid())
   email     String
   token     String   @unique
-  type      String
+  type      String   // "verify" | "reset"
   expiresAt DateTime
 }

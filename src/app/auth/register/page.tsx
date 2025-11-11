@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { FormEvent, useState } from "react";
+import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
@@ -20,8 +20,8 @@ export default function RegisterPage() {
         email: formData.get("email"),
         password: formData.get("password")
       });
-      setSuccess("Registrierung erfolgreich. Bitte E-Mail zur Verifizierung prüfen.");
-      setTimeout(() => router.push("/auth/login"), 1500);
+      setSuccess("Registrierung erfolgreich. Jetzt einloggen.");
+      setTimeout(() => router.push("/auth/login"), 800);
     } catch (err: any) {
       setError(err.response?.data?.error || "Fehler bei der Registrierung.");
     }
@@ -33,9 +33,26 @@ export default function RegisterPage() {
       {error && <div className="text-xs text-red-500">{error}</div>}
       {success && <div className="text-xs text-green-600">{success}</div>}
       <form onSubmit={handleSubmit} className="space-y-3 text-xs">
-        <input name="name" placeholder="Name" required className="w-full border px-3 py-2 rounded-md" />
-        <input name="email" type="email" placeholder="E-Mail" required className="w-full border px-3 py-2 rounded-md" />
-        <input name="password" type="password" placeholder="Passwort" required className="w-full border px-3 py-2 rounded-md" />
+        <input
+          name="name"
+          placeholder="Name"
+          required
+          className="w-full border px-3 py-2 rounded-md"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="E-Mail"
+          required
+          className="w-full border px-3 py-2 rounded-md"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Passwort"
+          required
+          className="w-full border px-3 py-2 rounded-md"
+        />
         <button className="btn-primary w-full">Registrieren</button>
       </form>
     </div>
