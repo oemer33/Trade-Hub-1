@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-50 text-slate-900;
+}
+
+a {
+  @apply text-tradehub-blue hover:underline;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-md bg-tradehub-blue text-white font-semibold hover:bg-blue-700 transition;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-md border border-tradehub-blue text-tradehub-blue font-semibold hover:bg-tradehub-blue hover:text-white transition;
+}
